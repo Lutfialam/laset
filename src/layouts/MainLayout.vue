@@ -71,34 +71,74 @@
             class="q-px-lg"
           ></q-btn>
         </div> -->
-        <q-item
-          clickable
-          active-class="my-menu-link"
-          v-ripple
-          :active="link === '/dashboard/'"
-          @click="changeLink('/dashboard/')"
-        >
-          <q-item-section avatar>
-            <q-icon name="fas fa-tachometer-alt" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Dashboard</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item
-          clickable
-          active-class="my-menu-link"
-          v-ripple
+        <MenuLink
+          label="Dashboard"
+          icon="fas fa-tachometer-alt"
+          :active="link === '/dashboard/dashboard'"
+          @onClick="changeLink('/dashboard/dashboard')"
+        />
+        <MenuLink
+          label="Table"
+          icon="fas fa-table"
           :active="link === '/dashboard/table'"
-          @click="changeLink('/dashboard/table')"
+          @onClick="changeLink('/dashboard/table')"
+        />
+
+        <p class="q-mt-lg q-pl-sm">Master data</p>
+        <MenuGroupLink
+          label="Master data"
+          icon="fas fa-user"
+          :active="link.includes('/dashboard/user')"
         >
-          <q-item-section avatar>
-            <q-icon name="fas fa-table" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Table</q-item-label>
-          </q-item-section>
-        </q-item>
+          <MenuLink
+            label="Warehouse"
+            icon="fas fa-table"
+            :active="link === '/dashboard/warehouse'"
+            @onClick="changeLink('/dashboard/warehouse')"
+          />
+          <MenuGroupLink
+            label="user"
+            icon="fas fa-user"
+            :active="link.includes('/dashboard/user')"
+          >
+            <MenuLink
+              label="User"
+              :active="link === '/dashboard/user'"
+              @onClick="changeLink('/dashboard/user')"
+            />
+            <MenuLink
+              label="User group"
+              :active="link === '/dashboard/user/group'"
+              @onClick="changeLink('/dashboard/user/group')"
+            />
+            <MenuLink
+              label="User group menu"
+              :active="link === '/dashboard/user/groupmenu'"
+              @onClick="changeLink('/dashboard/user/groupmenu')"
+            />
+          </MenuGroupLink>
+        </MenuGroupLink>
+
+        <p class="q-mt-lg q-pl-sm">Transaksi</p>
+        <MenuLink
+          label="Create transaksi list"
+          icon="fas fa-table"
+          :active="link === '/dashboard/transaksi/list/create'"
+          @onClick="changeLink('/dashboard/transaksi/list/create')"
+        />
+        <MenuLink
+          label="Form Create transaksi"
+          icon="fas fa-table"
+          :active="link === '/dashboard/transaksi/form/create'"
+          @onClick="changeLink('/dashboard/transaksi/form/create')"
+        />
+        <p class="q-mt-lg q-pl-sm">Transaksi</p>
+        <MenuLink
+          label="Description group"
+          icon="fas fa-table"
+          :active="link === '/dashboard/descgroup'"
+          @onClick="changeLink('/dashboard/descgroup')"
+        />
       </q-list>
       <q-space></q-space>
       <div
@@ -121,6 +161,8 @@
 <script setup lang="ts">
 import { useMyGlobalState } from 'src/stores/myglobalstate';
 import { onMounted, ref } from 'vue';
+import MenuLink from 'components/MenuLink.vue';
+import MenuGroupLink from 'components/MenuGroupLink.vue';
 // import EssentialLink, {
 //   EssentialLinkProps,
 // } from 'components/EssentialLink.vue';
